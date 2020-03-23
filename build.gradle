@@ -76,17 +76,24 @@ configure(allprojects) { project ->
 			enabled = false
 		}
 	}
+	// 设置仓库为阿里云
+	allprojects {
+		repositories {
+			maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+		}
+	}
 
 	configurations.all {
 		// Check for updates every build
 		resolutionStrategy.cacheChangingModulesFor 0, "seconds"
 
+		// 这段直接注释
 		// Consistent slf4j version (e.g. clashes between slf4j versions)
-		resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-			if (details.requested.group == "org.slf4j") {
-				details.useVersion slf4jVersion
-			}
-		}
+//		resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+//			if (details.requested.group == "org.slf4j") {
+//				details.useVersion slf4jVersion
+//			}
+//		}
 	}
 
 	def commonCompilerArgs =
